@@ -1,0 +1,35 @@
+{
+    "manifest_version": 3,
+    "name": "SussyGeek",
+    "version": "1.1",
+    "host_permissions": [
+        "*://*.geeksforgeeks.org/*"
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "inject.js",
+                "./content/content.css"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        }
+    ],
+    "content_scripts": [
+        {
+            "matches": [
+                "*://*.geeksforgeeks.org/*"
+            ],
+            "js": [
+                "./content/searchBar.js",
+                "./content/TableBuilder.js",
+                "content.js"
+            ],
+            "css": [
+                "./content/content.css"
+            ],
+            "run_at": "document_start"
+        }
+    ]
+}

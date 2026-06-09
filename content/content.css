@@ -1,0 +1,320 @@
+/* ================================================================
+   SussyGeek Extension — Adaptive Theme
+   ================================================================
+   Light tokens are the default.  Dark tokens activate when GFG
+   sets  data-dark-mode  on <body>.  All component styles reference
+   these tokens — zero duplication, single-source palette swap.
+   ================================================================ */
+
+/* ── Light Tokens (default) ─────────────────────── */
+
+:root {
+    --sg-bg-card:       #ffffff;
+    --sg-bg-card-hover: #f9fafb;
+    --sg-border:        #e5e7eb;
+    --sg-border-hover:  #c5cad0;
+    --sg-text-primary:  #1f2937;
+    --sg-text-muted:    #6b7280;
+    --sg-text-accent:   #2f8d46;
+    --sg-accent-hover:  #267a3b;
+    --sg-btn-bg:        #ffffff;
+    --sg-btn-bg-hover:  #f3f4f6;
+    --sg-btn-border:    #d1d5db;
+    --sg-btn-active-bg: #2f8d46;
+    --sg-btn-active-hover: #267a3b;
+    --sg-shadow:        rgba(0, 0, 0, 0.08);
+    --sg-avatar-text:   #1a1a1a;
+    --sg-radius:        10px;
+    --sg-transition:    0.18s ease;
+}
+
+/* ── Dark Tokens ────────────────────────────────── */
+
+body[data-dark-mode="true"] {
+    --sg-bg-card:       #161b22;
+    --sg-bg-card-hover: #1c2230;
+    --sg-border:        #2a2f3a;
+    --sg-border-hover:  #3d4450;
+    --sg-text-primary:  #e1e4e8;
+    --sg-text-muted:    #8b949e;
+    --sg-text-accent:   #4ade80;
+    --sg-accent-hover:  #6ee7a0;
+    --sg-btn-bg:        #161b22;
+    --sg-btn-bg-hover:  #21262d;
+    --sg-btn-border:    #2a2f3a;
+    --sg-btn-active-bg: #238636;
+    --sg-btn-active-hover: #2ea043;
+    --sg-shadow:        rgba(0, 0, 0, 0.35);
+    --sg-avatar-text:   #111111;
+}
+
+
+/* ── Student Grid ───────────────────────────────── */
+
+.sg-student-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 18px 0;
+}
+
+
+/* ── Student Card ───────────────────────────────── */
+
+.sg-student-card {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 14px 20px;
+    box-sizing: border-box;
+    border-radius: var(--sg-radius);
+    background: var(--sg-bg-card);
+    border: 1px solid var(--sg-border);
+    text-decoration: none;
+    color: var(--sg-text-primary);
+    transition:
+        background var(--sg-transition),
+        border-color var(--sg-transition),
+        box-shadow var(--sg-transition),
+        transform var(--sg-transition);
+}
+
+.sg-student-card:hover {
+    background: var(--sg-bg-card-hover);
+    border-color: var(--sg-border-hover);
+    box-shadow: 0 4px 16px var(--sg-shadow);
+    transform: translateY(-1px);
+}
+
+
+/* ── Avatar ─────────────────────────────────────── */
+
+.sg-student-card__avatar {
+    flex-shrink: 0;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--sg-avatar-text);
+    letter-spacing: 0.5px;
+}
+
+.sg-student-card__avatar-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+    min-width: 180px;
+}
+
+
+/* ── Info Section ───────────────────────────────── */
+
+.sg-student-card__info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 8px 28px;
+    flex: 1;
+    width: 100%;
+}
+
+
+/* ── Stat Cell ──────────────────────────────────── */
+
+.sg-student-card__stat {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 90px;
+}
+
+.sg-student-card__label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--sg-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin: 0;
+}
+
+.sg-student-card__value {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--sg-text-primary);
+    margin: 0;
+}
+
+
+/* ── Handle (green accent) ──────────────────────── */
+
+.sg-student-card__handle {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--sg-text-accent);
+    margin: 0;
+    transition: color var(--sg-transition);
+}
+
+.sg-student-card:hover .sg-student-card__handle {
+    color: var(--sg-accent-hover);
+}
+
+
+/* ── Pagination ─────────────────────────────────── */
+
+.sg-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 22px 0;
+}
+
+.sg-pagination__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 10px;
+    border: 1px solid var(--sg-btn-border);
+    border-radius: 8px;
+    background: var(--sg-btn-bg);
+    color: var(--sg-text-primary);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+        background var(--sg-transition),
+        border-color var(--sg-transition);
+}
+
+.sg-pagination__btn:hover {
+    background: var(--sg-btn-bg-hover);
+    border-color: var(--sg-border-hover);
+}
+
+.sg-pagination__btn--active {
+    background: var(--sg-btn-active-bg);
+    border-color: var(--sg-btn-active-bg);
+    color: #fff;
+}
+
+.sg-pagination__btn--active:hover {
+    background: var(--sg-btn-active-hover);
+}
+
+.sg-pagination__btn--disabled {
+    opacity: 0.35;
+    pointer-events: none;
+}
+
+.sg-pagination__dots {
+    font-size: 14px;
+    color: var(--sg-text-muted);
+    padding: 0 4px;
+    margin: 0;
+}
+
+
+/* ── Search Bar ────────────────────────────────── */
+
+.sg-search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    border: 1px solid var(--sg-border);
+    border-radius: var(--sg-radius);
+    background: var(--sg-bg-card);
+    transition:
+        border-color var(--sg-transition),
+        box-shadow var(--sg-transition);
+}
+
+.sg-search:focus-within {
+    border-color: var(--sg-text-accent);
+    box-shadow: 0 0 0 3px rgba(47, 141, 70, 0.12);
+}
+
+body[data-dark-mode="true"] .sg-search:focus-within {
+    box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.15);
+}
+
+.sg-search__icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    color: var(--sg-text-muted);
+    transition: color var(--sg-transition);
+}
+
+.sg-search:focus-within .sg-search__icon {
+    color: var(--sg-text-accent);
+}
+
+.sg-search__input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--sg-text-primary);
+    font-family: inherit;
+    line-height: 1.5;
+}
+
+.sg-search__input::placeholder {
+    color: var(--sg-text-muted);
+    opacity: 0.7;
+}
+
+.sg-search__clear {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--sg-text-muted);
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition:
+        opacity var(--sg-transition),
+        background var(--sg-transition),
+        color var(--sg-transition);
+}
+
+.sg-search__clear--visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.sg-search__clear:hover {
+    background: var(--sg-btn-bg-hover);
+    color: var(--sg-text-primary);
+}
+
+
+/* ── Empty State ───────────────────────────────── */
+
+.sg-search__empty {
+    text-align: center;
+    padding: 32px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--sg-text-muted);
+    letter-spacing: 0.2px;
+}
