@@ -95,7 +95,7 @@ class NoteModal {
         footer.className = "sussy_note_modal_footer";
 
         const editBtn = document.createElement("button");
-        editBtn.className = "ui button green";
+        editBtn.className = "sg-btn sg-btn-primary";
         editBtn.innerText = "Edit Note";
         editBtn.onclick = () => {
             this.#isEditMode = true;
@@ -177,14 +177,14 @@ class NoteModal {
         footer.className = "sussy_note_modal_footer";
 
         const saveBtn = document.createElement("button");
-        saveBtn.className = "ui button green";
+        saveBtn.className = "sg-btn sg-btn-primary";
         saveBtn.innerText = "Save Note";
         saveBtn.onclick = () => {
             this.#saveNote(editor.innerHTML);
         };
 
         const cancelBtn = document.createElement("button");
-        cancelBtn.className = "ui button";
+        cancelBtn.className = "sg-btn";
         cancelBtn.innerText = "Cancel";
         cancelBtn.onclick = () => {
             if (this.#noteData) {

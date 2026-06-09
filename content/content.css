@@ -30,7 +30,8 @@
 
 /* ── Dark Tokens ────────────────────────────────── */
 
-body[data-dark-mode="true"] {
+body[data-dark-mode="true"],
+body:has([data-dark-mode="true"]) {
     --sg-bg-card:       #161b22;
     --sg-bg-card-hover: #1c2230;
     --sg-border:        #2a2f3a;
@@ -463,4 +464,32 @@ body[data-dark-mode="true"] .sg-search:focus-within {
     width: 24px;
     height: 24px;
     cursor: pointer;
+}
+
+/* ── Modal Buttons ──────────────────────────────── */
+
+.sg-btn {
+    padding: 8px 16px;
+    border-radius: var(--sg-radius);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--sg-transition);
+    border: 1px solid var(--sg-btn-border);
+    background: var(--sg-btn-bg);
+    color: var(--sg-text-primary);
+}
+
+.sg-btn:hover {
+    background: var(--sg-btn-bg-hover);
+}
+
+.sg-btn-primary {
+    background: var(--sg-btn-active-bg);
+    border-color: var(--sg-btn-active-bg);
+    color: #fff;
+}
+
+.sg-btn-primary:hover {
+    background: var(--sg-btn-active-hover);
 }
