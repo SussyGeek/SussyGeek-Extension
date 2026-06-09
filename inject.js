@@ -13,6 +13,7 @@ class StudentListInterceptor {
     apiUrl;
     studentList = null;
     instituteId;
+    interceptedData = null;
     originalFetch;
 
     constructor() {
@@ -20,11 +21,11 @@ class StudentListInterceptor {
         this.apiUrl = extensionConfig.API_ENDPOINT;
     }
 
-    notifyAboutPayload(studentData = this.studentList) {
+    notifyAboutPayload(payloadType, data) {
         window.postMessage({
-            source: "gfg-extension",
-            type: "GFG_STUDENTS",
-            payload: studentData,
+            source: "sussygeek-extension",
+            type: payloadType,
+            payload: data,
             instituteId: this.instituteId
         }, "*");
     }
@@ -45,9 +46,8 @@ class StudentListInterceptor {
     }
 
     // Method 1: Intercept the browser's request.
-    async interceptStudentList() {
+    async interceptData() {
         const originalFetch = this.originalFetch;
-
         window.fetch = async (...args) => {
             const req = args[0];
 
@@ -57,17 +57,40 @@ class StudentListInterceptor {
 
             const response = await originalFetch(...args);
 
-
-            if (url.includes("/students/stats")) {
-                this.instituteId = url.split("/")[6].trim();
-                try {
+            try {
+                if (url.includes("/students/stats")) {
+                    this.interceptedData = "STUDENT";
+                    this.instituteId = url.split("/")[6].trim();
                     const data = await response.clone().json();
                     this.studentList = data;
                     await this.getFullNames();
-                    this.notifyAboutPayload();
-                } catch (err) {
-                    console.error(err);
+                    this.notifyAboutPayload("GFG_STUDENTS", this.studentList);
+
+                } else if (url.includes("/metainfo/")) {
+                    this.interceptedData = "PROBLEM";
+                    const { results } = await response.clone().json();
+                    const problemSlug = url.split("/")[6];
+
+                    const problemTitleParentNode = document.querySelectorAll(
+                        '[class^="problems_header_content__title"]'
+                    );
+                    const problemInfoTagsParent = document.querySelectorAll(
+                        '[class^="problems_header_description"]'
+                    );
+                    const name = problemTitleParentNode[0].childNodes[0].innerText;
+                    const difficulty = problemInfoTagsParent[0].childNodes[0].innerText.split(" ")[1];
+
+                    const problemData = {
+                        id: results.id,
+                        name,
+                        difficulty: difficulty.toLowerCase(),
+                        link: `https://www.geeksforgeeks.org/problems/${problemSlug}/1`
+                    };
+
+                    this.notifyAboutPayload("GFG_PROBLEM", problemData);
                 }
+            } catch (err) {
+                console.error("[Interceptor error]: ", err);
             }
 
             return response;
@@ -86,7 +109,7 @@ class StudentListInterceptor {
 
             this.studentList = studentData;
             await this.getFullNames();
-            this.notifyAboutPayload();
+            this.notifyAboutPayload("GFG_STUDENTS", this.studentList);
 
             return studentData;
         } catch (err) {
@@ -98,9 +121,9 @@ class StudentListInterceptor {
 
 
 (async () => {
-    const interceptorInstance =
-        new StudentListInterceptor();
+    const interceptorInstance = new StudentListInterceptor();
 
-    await interceptorInstance.interceptStudentList();
-    setTimeout(() => interceptorInstance.getStudentList(), 3000);
+    await interceptorInstance.interceptData();
+    if (this.interceptedData === "STUDENT")
+        setTimeout(() => interceptorInstance.getStudentList(), 3000);
 })();

@@ -24,6 +24,7 @@
             "js": [
                 "./content/searchBar.js",
                 "./content/TableBuilder.js",
+                "./content/bookmarkBtn.js",
                 "content.js"
             ],
             "css": [
