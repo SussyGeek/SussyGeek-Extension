@@ -318,3 +318,149 @@ body[data-dark-mode="true"] .sg-search:focus-within {
     color: var(--sg-text-muted);
     letter-spacing: 0.2px;
 }
+
+/* ── Note Modal ───────────────────────────────── */
+
+.sussy_note_modal_backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.sussy_note_modal {
+    background: var(--sg-bg-card);
+    border: 1px solid var(--sg-border);
+    border-radius: var(--sg-radius);
+    width: 600px;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 30px var(--sg-shadow);
+    color: var(--sg-text-primary);
+}
+
+.sussy_note_modal_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--sg-border);
+}
+
+.sussy_note_modal_header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.sussy_note_close_btn {
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--sg-text-muted);
+}
+
+.sussy_note_close_btn:hover {
+    color: var(--sg-text-primary);
+}
+
+.sussy_note_read_view,
+.sussy_note_edit_view {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+}
+
+.sussy_note_meta {
+    padding: 12px 20px;
+    font-size: 12px;
+    color: var(--sg-text-muted);
+    background: var(--sg-bg-card-hover);
+    border-bottom: 1px solid var(--sg-border);
+}
+
+.sussy_note_content {
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+    line-height: 1.6;
+}
+
+.sussy_note_content img {
+    max-width: 100%;
+}
+
+.sussy_note_editor {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    outline: none;
+    line-height: 1.6;
+    min-height: 200px;
+}
+
+.sussy_note_editor img {
+    max-width: 100%;
+}
+
+.sussy_note_modal_footer {
+    padding: 16px 20px;
+    border-top: 1px solid var(--sg-border);
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.sussy_note_toolbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-bottom: 1px solid var(--sg-border);
+    background: var(--sg-bg-card-hover);
+    flex-wrap: wrap;
+}
+
+.sussy_note_toolbar_btn {
+    background: var(--sg-btn-bg);
+    border: 1px solid var(--sg-btn-border);
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+    color: var(--sg-text-primary);
+    min-width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sussy_note_toolbar_btn:hover {
+    background: var(--sg-btn-bg-hover);
+}
+
+.sussy_note_toolbar_select {
+    padding: 4px;
+    border: 1px solid var(--sg-btn-border);
+    border-radius: 4px;
+    background: var(--sg-btn-bg);
+    color: var(--sg-text-primary);
+}
+
+.sussy_note_toolbar_color {
+    padding: 0;
+    border: none;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}

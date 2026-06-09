@@ -25,6 +25,8 @@
                 "./content/searchBar.js",
                 "./content/TableBuilder.js",
                 "./content/bookmarkBtn.js",
+                "./content/noteModal.js",
+                "./content/noteBtn.js",
                 "content.js"
             ],
             "css": [

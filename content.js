@@ -125,6 +125,7 @@ class ContentCoordinator {
         if (!utilsContainer) return;
 
         new BookmarkBtn(utilsContainer, () => this.#problemData);
+        new NoteBtn(utilsContainer, () => this.#problemData);
     }
 }
 
