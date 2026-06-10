@@ -1,3 +1,4 @@
+
 /**
  * SearchBar — Search students via backend API and swap the card grid.
  *
@@ -9,7 +10,6 @@
  * DOM target:  Inserted as the first child of #sg-student-container,
  *              sitting above .sg-student-grid.
  */
-const BACKEND_URL = "http://localhost:5000/api/v1"
 
 class SearchBar {
 
@@ -132,14 +132,14 @@ class SearchBar {
     async #applyFilter() {
         if (!this.#tableBuilder) return;
 
-        const query = this.#input.value.trim();
+        const fullNameQuery = this.#input.value.trim();
 
-        if (!query) {
+        if (!fullNameQuery) {
             this.#restoreOriginals();
             return;
         }
 
-        const students = await this.#searchBackend(query);
+        const students = await findStudentsByFullname(fullNameQuery, this.#instituteId);
         this.#tableBuilder.replaceGrid(students);
         this.#toggleEmptyState(students.length === 0);
     }
@@ -149,30 +149,6 @@ class SearchBar {
         if (!this.#tableBuilder || !this.#originalStudents) return;
         this.#tableBuilder.replaceGrid(this.#originalStudents);
         this.#toggleEmptyState(false);
-    }
-
-    /**
-     * @param {string} nameQuery
-     * @returns {Promise<Object[]>}
-     */
-    async #searchBackend(nameQuery) {
-        try {
-            const res = await fetch(
-                `${BACKEND_URL}/student/search?name=${encodeURIComponent(nameQuery)}&instituteId=${this.#instituteId}`
-            );
-            const { data } = await res.json();
-            // Normalize backend shape → intercepted shape for #buildCard.
-            return (data ?? []).map(s => ({
-                handle: s.username,
-                fullName: s.name,
-                coding_score: s.score,
-                total_problems_solved: s.solved,
-                potd_longest_streak: s.streak
-            }));
-        } catch (err) {
-            console.error("[SussyGeek] Search failed:", err);
-            return [];
-        }
     }
 
     // ── Empty State ────────────────────────────────

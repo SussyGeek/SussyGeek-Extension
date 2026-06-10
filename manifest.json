@@ -8,6 +8,7 @@
     "web_accessible_resources": [
         {
             "resources": [
+                "services/backend.service.js",
                 "inject.js",
                 "./content/content.css"
             ],
@@ -22,6 +23,8 @@
                 "*://*.geeksforgeeks.org/*"
             ],
             "js": [
+                "./services/backend.service.js",
+                "./content/contributionBanner.js",
                 "./content/searchBar.js",
                 "./content/TableBuilder.js",
                 "./content/bookmarkBtn.js",

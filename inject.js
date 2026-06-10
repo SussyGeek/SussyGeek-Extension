@@ -1,13 +1,8 @@
+// TODO: This will be moved to an appropriate place or removed later.
 const extensionConfig = {
     API_ENDPOINT: "https://practiceapi.geeksforgeeks.org/api/v1/institute/2065/students/stats?page_size=10&page=2",
     BACKEND_ENDPOINT: "http://localhost:5000/api/v1"
 };
-
-const apiPaths = {
-    student: {
-        getFullnamesByIds: "student/list" // usage either /student/list?studentIds=2&studentIds=3 or /student/list?studentIds=[1,2,3,4] 
-    }
-}
 
 class StudentListInterceptor {
     apiUrl;
@@ -30,21 +25,6 @@ class StudentListInterceptor {
         }, "*");
     }
 
-    async getFullNames() {
-        const serializedIdList = this.studentList.results.map(
-            s => "studentIds=" + s.user_id.toString()
-        ).join("&");
-        const endpoint = `${extensionConfig.BACKEND_ENDPOINT}/${apiPaths.student.getFullnamesByIds}?${serializedIdList}`;
-        const res = await this.originalFetch(endpoint);
-        const { data: studentList } = (await res.json());
-
-        this.studentList.results = this.studentList.results.map(student => {
-            const matchingStudent = studentList?.find(s => s.$id === student.user_id.toString());
-            student.fullName = matchingStudent?.name || "Unknown";
-            return student;
-        });
-    }
-
     // Method 1: Intercept the browser's request.
     async interceptData() {
         const originalFetch = this.originalFetch;
@@ -59,12 +39,19 @@ class StudentListInterceptor {
 
             try {
                 if (url.includes("/students/stats")) {
-                    this.interceptedData = "STUDENT";
                     this.instituteId = url.split("/")[6].trim();
-                    const data = await response.clone().json();
-                    this.studentList = data;
-                    await this.getFullNames();
-                    this.notifyAboutPayload("GFG_STUDENTS", this.studentList);
+                    const instituteAvailable = await findInstituteAvailability(this.instituteId);
+
+                    this.interceptedData = "STUDENT";
+
+                    if (instituteAvailable) {
+                        const data = await response.clone().json();
+                        this.studentList = data;
+                        this.studentList.results = await getFullNamesByIds(this.studentList, this.originalFetch);
+                        this.notifyAboutPayload("GFG_STUDENTS", this.studentList);
+                    } else {
+                        this.notifyAboutPayload("GFG_INSTITUTE_UNAVAILABLE", { availability: instituteAvailable });
+                    }
 
                 } else if (url.includes("/metainfo/")) {
                     this.interceptedData = "PROBLEM";

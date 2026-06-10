@@ -494,3 +494,49 @@ body[data-dark-mode="true"] .sg-search:focus-within {
 .sg-btn-primary:hover {
     background: var(--sg-btn-active-hover);
 }
+
+/* ── Contribution Banner ───────────────────────── */
+
+.sg-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    background: var(--sg-bg-card);
+    border: 1px solid var(--sg-border);
+    border-radius: var(--sg-radius);
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px var(--sg-shadow);
+    transition: background var(--sg-transition), border-color var(--sg-transition);
+}
+
+.sg-banner__content {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.sg-banner__logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--sg-text-accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(47, 141, 70, 0.3);
+}
+
+.sg-banner__text {
+    font-size: 14px;
+    color: var(--sg-text-primary);
+    line-height: 1.5;
+}
+
+.sg-banner__btn {
+    flex-shrink: 0;
+}
