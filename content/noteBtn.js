@@ -33,10 +33,11 @@ class NoteBtn {
         button.addEventListener("click", () => this.#handleNoteClick());
     }
 
-    #render() {
+    async #render() {
         const problemData = this.#problemDataFn();
         if (!problemData) return;
-        const notes = JSON.parse(localStorage.getItem("gfg_notes") || "{}");
+        const data = await chrome.storage.local.get(["gfg_notes"]);
+        const notes = data.gfg_notes || {};
         const hasNote = !!notes[problemData.id];
 
         this.#innerDiv.innerHTML = `
@@ -56,9 +57,9 @@ class NoteBtn {
 
         if (this.#modal) return; // Prevent multiple modals
 
-        this.#modal = new NoteModal(problemData, () => {
+        this.#modal = new NoteModal(problemData, async () => {
             this.#modal = null;
-            this.#render(); // Re-render to update the button text if a note was created
+            await this.#render(); // Re-render to update the button text if a note was created
         });
     }
 

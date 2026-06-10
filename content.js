@@ -118,7 +118,7 @@ class ContentCoordinator {
      * Locate the target section and kick off the first render.
      * Called once after the initial SPA paint delay.
      */
-    #bootstrapStudentList() {
+    async #bootstrapStudentList() {
         const sections = document.querySelectorAll(
             '[class^="params_head_rightside--otherSections"]'
         );
@@ -129,14 +129,18 @@ class ContentCoordinator {
         this.#tableBuilder = new TableBuilder(this.#parentSection);
 
         this.#tableBuilder.render(this.#studentData);
-        if (this.#studentData) {
+        
+        const { sussygeek_settings = {} } = await chrome.storage.local.get("sussygeek_settings");
+        const fullNameSearchEnabled = sussygeek_settings.fullNameSearch ?? true;
+
+        if (fullNameSearchEnabled && this.#studentData) {
             this.#searchBar.setContext(
                 this.#studentData.results,
                 this.#instituteId,
                 this.#tableBuilder
             );
+            this.#searchBar.mount();
         }
-        this.#searchBar.mount();
     }
 
     #bootstrapContributionBanner() {
@@ -151,15 +155,23 @@ class ContentCoordinator {
         banner.mount();
     }
 
-    #bootstrapProblemUtils() {
+    async #bootstrapProblemUtils() {
         const utilsContainer = document.querySelectorAll(
             '[class^="problems_add_notes_action_container"]'
         )[0];
 
         if (!utilsContainer) return;
 
-        new BookmarkBtn(utilsContainer, () => this.#problemData);
-        new NoteBtn(utilsContainer, () => this.#problemData);
+        const { sussygeek_settings = {} } = await chrome.storage.local.get("sussygeek_settings");
+        const bookmarksEnabled = sussygeek_settings.bookmarks ?? true;
+        const notesEnabled = sussygeek_settings.notes ?? true;
+
+        if (bookmarksEnabled) {
+            new BookmarkBtn(utilsContainer, () => this.#problemData);
+        }
+        if (notesEnabled) {
+            new NoteBtn(utilsContainer, () => this.#problemData);
+        }
         this.#resetSpacing();
     }
 }

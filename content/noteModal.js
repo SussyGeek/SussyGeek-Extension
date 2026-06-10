@@ -8,25 +8,31 @@ class NoteModal {
     constructor(problemData, onClose) {
         this.#problemData = problemData;
         this.#onClose = onClose;
-        this.#loadNote();
+        this.#init();
+    }
+
+    async #init() {
+        await this.#loadNote();
         this.#initUI();
     }
 
-    #loadNote() {
-        const notes = JSON.parse(localStorage.getItem("gfg_notes") || "{}");
+    async #loadNote() {
+        const data = await chrome.storage.local.get(["gfg_notes"]);
+        const notes = data.gfg_notes || {};
         this.#noteData = notes[this.#problemData.id];
         this.#isEditMode = !this.#noteData;
     }
 
-    #saveNote(htmlContent) {
-        const notes = JSON.parse(localStorage.getItem("gfg_notes") || "{}");
+    async #saveNote(htmlContent) {
+        const data = await chrome.storage.local.get(["gfg_notes"]);
+        const notes = data.gfg_notes || {};
         const now = new Date().toISOString();
         notes[this.#problemData.id] = {
             content: htmlContent,
             createdAt: this.#noteData ? this.#noteData.createdAt : now,
             updatedAt: now
         };
-        localStorage.setItem("gfg_notes", JSON.stringify(notes));
+        await chrome.storage.local.set({ gfg_notes: notes });
         this.#noteData = notes[this.#problemData.id];
         this.#isEditMode = false;
         this.#render();
@@ -179,8 +185,10 @@ class NoteModal {
         const saveBtn = document.createElement("button");
         saveBtn.className = "sg-btn sg-btn-primary";
         saveBtn.innerText = "Save Note";
-        saveBtn.onclick = () => {
-            this.#saveNote(editor.innerHTML);
+        saveBtn.onclick = async () => {
+            saveBtn.disabled = true;
+            saveBtn.innerText = "Saving...";
+            await this.#saveNote(editor.innerHTML);
         };
 
         const cancelBtn = document.createElement("button");

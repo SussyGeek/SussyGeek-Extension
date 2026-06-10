@@ -32,10 +32,11 @@ class BookmarkBtn {
         button.addEventListener("click", () => this.#handleBookmarkToggle());
     }
 
-    #render() {
+    async #render() {
         const problemData = this.#problemDataFn();
         if (!problemData) return;
-        const bookmarks = JSON.parse(localStorage.getItem("gfg_bookmarks") || "{}");
+        const data = await chrome.storage.local.get(["gfg_bookmarks"]);
+        const bookmarks = data.gfg_bookmarks || {};
         const isBookmarked = !!bookmarks[problemData.id];
 
         this.#innerDiv.innerHTML = `
@@ -48,10 +49,11 @@ class BookmarkBtn {
         `;
     }
 
-    #handleBookmarkToggle() {
+    async #handleBookmarkToggle() {
         const problemData = this.#problemDataFn();
         if (!problemData) return;
-        const bookmarks = JSON.parse(localStorage.getItem("gfg_bookmarks") || "{}");
+        const data = await chrome.storage.local.get(["gfg_bookmarks"]);
+        const bookmarks = data.gfg_bookmarks || {};
 
         if (bookmarks[problemData.id]) {
             delete bookmarks[problemData.id];
@@ -65,8 +67,8 @@ class BookmarkBtn {
             };
         }
 
-        localStorage.setItem("gfg_bookmarks", JSON.stringify(bookmarks));
-        this.#render();
+        await chrome.storage.local.set({ gfg_bookmarks: bookmarks });
+        await this.#render();
     }
 
     #startDataCheck() {
