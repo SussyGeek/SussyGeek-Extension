@@ -9,44 +9,44 @@
 /* ── Light Tokens (default) ─────────────────────── */
 
 :root {
-    --sg-bg-card:       #ffffff;
+    --sg-bg-card: #ffffff;
     --sg-bg-card-hover: #f9fafb;
-    --sg-border:        #e5e7eb;
-    --sg-border-hover:  #c5cad0;
-    --sg-text-primary:  #1f2937;
-    --sg-text-muted:    #6b7280;
-    --sg-text-accent:   #2f8d46;
-    --sg-accent-hover:  #267a3b;
-    --sg-btn-bg:        #ffffff;
-    --sg-btn-bg-hover:  #f3f4f6;
-    --sg-btn-border:    #d1d5db;
+    --sg-border: #e5e7eb;
+    --sg-border-hover: #c5cad0;
+    --sg-text-primary: #1f2937;
+    --sg-text-muted: #6b7280;
+    --sg-text-accent: #2f8d46;
+    --sg-accent-hover: #267a3b;
+    --sg-btn-bg: #ffffff;
+    --sg-btn-bg-hover: #f3f4f6;
+    --sg-btn-border: #d1d5db;
     --sg-btn-active-bg: #2f8d46;
     --sg-btn-active-hover: #267a3b;
-    --sg-shadow:        rgba(0, 0, 0, 0.08);
-    --sg-avatar-text:   #1a1a1a;
-    --sg-radius:        10px;
-    --sg-transition:    0.18s ease;
+    --sg-shadow: rgba(0, 0, 0, 0.08);
+    --sg-avatar-text: #1a1a1a;
+    --sg-radius: 10px;
+    --sg-transition: 0.18s ease;
 }
 
 /* ── Dark Tokens ────────────────────────────────── */
 
 body[data-dark-mode="true"],
 body:has([data-dark-mode="true"]) {
-    --sg-bg-card:       #161b22;
+    --sg-bg-card: #161b22;
     --sg-bg-card-hover: #1c2230;
-    --sg-border:        #2a2f3a;
-    --sg-border-hover:  #3d4450;
-    --sg-text-primary:  #e1e4e8;
-    --sg-text-muted:    #8b949e;
-    --sg-text-accent:   #4ade80;
-    --sg-accent-hover:  #6ee7a0;
-    --sg-btn-bg:        #161b22;
-    --sg-btn-bg-hover:  #21262d;
-    --sg-btn-border:    #2a2f3a;
+    --sg-border: #2a2f3a;
+    --sg-border-hover: #3d4450;
+    --sg-text-primary: #e1e4e8;
+    --sg-text-muted: #8b949e;
+    --sg-text-accent: #4ade80;
+    --sg-accent-hover: #6ee7a0;
+    --sg-btn-bg: #161b22;
+    --sg-btn-bg-hover: #21262d;
+    --sg-btn-border: #2a2f3a;
     --sg-btn-active-bg: #238636;
     --sg-btn-active-hover: #2ea043;
-    --sg-shadow:        rgba(0, 0, 0, 0.35);
-    --sg-avatar-text:   #111111;
+    --sg-shadow: rgba(0, 0, 0, 0.35);
+    --sg-avatar-text: #111111;
 }
 
 
@@ -409,6 +409,7 @@ body[data-dark-mode="true"] .sg-search:focus-within {
     outline: none;
     line-height: 1.6;
     min-height: 200px;
+    cursor: text
 }
 
 .sussy_note_editor img {

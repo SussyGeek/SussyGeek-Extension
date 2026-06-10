@@ -14,7 +14,7 @@ class BookmarkBtn {
     #initUI() {
         this.#wrapper = document.createElement("div");
         this.#wrapper.className = "problems_problem_timer_content__24gPQ";
-        this.#wrapper.style.marginLeft = "4px";
+        this.#wrapper.style.gap = "0px";
 
         const btnDiv = document.createElement("div");
         btnDiv.className = "problems_user_timer_div__AR0yn";

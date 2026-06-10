@@ -15,7 +15,7 @@ class NoteBtn {
     #initUI() {
         this.#wrapper = document.createElement("div");
         this.#wrapper.className = "problems_problem_timer_content__24gPQ";
-        this.#wrapper.style.marginLeft = "4px";
+        this.#wrapper.style.gap = "0px";
 
         const btnDiv = document.createElement("div");
         btnDiv.className = "problems_user_timer_div__AR0yn";
@@ -53,9 +53,9 @@ class NoteBtn {
     #handleNoteClick() {
         const problemData = this.#problemDataFn();
         if (!problemData) return;
-        
+
         if (this.#modal) return; // Prevent multiple modals
-        
+
         this.#modal = new NoteModal(problemData, () => {
             this.#modal = null;
             this.#render(); // Re-render to update the button text if a note was created

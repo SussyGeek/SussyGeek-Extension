@@ -59,6 +59,12 @@ class ContentCoordinator {
         script.onload = () => script.remove();
     }
 
+    #resetSpacing() {
+        const timerNode = document.querySelector('[class^="problems_add_notes_action_container"]').childNodes[0];
+        console.log("")
+        timerNode.style.gridGap = "0px";
+    }
+
     // ── Message Listener ───────────────────────────
 
     #interceptData() {
@@ -126,6 +132,7 @@ class ContentCoordinator {
 
         new BookmarkBtn(utilsContainer, () => this.#problemData);
         new NoteBtn(utilsContainer, () => this.#problemData);
+        this.#resetSpacing();
     }
 }
 
